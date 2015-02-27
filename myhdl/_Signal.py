@@ -187,10 +187,12 @@ class _Signal(object):
                 del self._negedgeWaiters[:]
             if next is None:
                 self._val = None
-            elif isinstance(val, intbv):
-                self._val._val = next._val
+            elif isinstance(val, bool):
+                self._val = bool(next)
             elif isinstance(val, (int, long, EnumItemType)):
                 self._val = next
+            elif isinstance(val, intbv):
+                self._val._val = next._val
             else:
                 self._val = deepcopy(next)
             if self._tracing:
